@@ -1,0 +1,30 @@
+.filterButton__btn {
+	color: #00b7f4;
+	background-color: #fff;
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+	border: 2px solid #00b7f4;
+}
+
+.filterButton__dropdown {
+	color: #00b7f4;
+	border: none;
+	outline: none;
+	padding: 10px 7px;
+	border: 2px solid #00b7f4;
+}
+
+.filterButton__btnActive {
+	color: #fff;
+	background-color: #00b7f4;
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+	border: 2px solid #00b7f4;
+}
+
+.ordercount {
+	text-align: center;
+	margin-bottom: 20px;
+}

@@ -1,0 +1,21 @@
+{
+  "filterByStatus": {
+    "statusDisplay": true,
+    "statusCategory":"Status",
+    "statusType":"Open"
+  },
+  "filterByColor": {
+    "colorDisplay": false,
+    "colorCategory":"Color",
+    "colorType":"Blue"
+  },
+  "filterByType": {
+    "display": true,
+    "typeOne":"Installation",
+    "typeTwo":"Maintenance",
+    "typeThree":"Malfunction"
+  },
+  "filterMulti": {
+    "display": true
+  }
+}

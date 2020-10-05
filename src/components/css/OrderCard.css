@@ -1,0 +1,41 @@
+.orderCard {
+	border: 1px;
+	margin-bottom: 20px;
+}
+
+.ordercard__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 10px;
+}
+
+.orderCard__statusContainer {
+	background-color: #fff;
+	width: fit-content;
+	padding: 8px;
+	border-radius: 20px;
+}
+
+.orderCard__status {
+	font-weight: 600;
+}
+
+.orderCard__headertext {
+	font-weight: 600;
+	color: #fff;
+}
+
+.ordercard__details {
+	padding: 10px;
+}
+
+.ordercard__label {
+	font-weight: 700;
+}
+
+.ordercard__dateContainer {
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}
