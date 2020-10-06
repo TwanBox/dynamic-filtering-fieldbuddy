@@ -4,7 +4,7 @@ import filterConfig from '../data/filterConfig.json';
 
 const FilterRadio = () => {
   const store = useContext(StoreContext);
-  const { typeOne, typeTwo, typeThree, display } = filterConfig.filterByType;
+  const { typeOne, typeTwo, typeThree } = filterConfig.filterByType;
 
   const handleToggle = (e) => {
     if (store.selectedFilters.types.length === 0) {

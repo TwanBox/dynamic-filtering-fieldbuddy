@@ -16,6 +16,6 @@
     "typeThree":"Malfunction"
   },
   "filterMulti": {
-    "display": true
+    "display": false
   }
 }
