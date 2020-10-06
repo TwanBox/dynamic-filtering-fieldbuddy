@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { useObserver } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { StoreContext } from '../stores/OrdersStore';
 import OrderCard from './OrderCard';
 import './css/OrderCard.css';
 
-const OrderList = () => {
+const OrderList = observer(() => {
   const store = useContext(StoreContext);
 
-  return useObserver(() => (
+  return (
     <div className="orderList">
 			{store.filtered.map(({
 					Id,
@@ -32,7 +32,7 @@ const OrderList = () => {
 				)
 			}
 			</div>
-  ));
-};
+  );
+});
 
 export default OrderList;

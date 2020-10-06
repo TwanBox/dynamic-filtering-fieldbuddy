@@ -1,17 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { useObserver } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { StoreContext } from '../stores/OrdersStore';
 import './css/FilterButton.css';
 
-const FilterButton = ({ filterType, category }) => {
+const FilterButton = observer(({ filterType, category }) => {
   const [active, setActive] = useState(false);
   const store = useContext(StoreContext);
 
   const handleToggle = (e) => {
     setActive(!active);
     if (!active) {
-      if (category === "Multi")
-      store.setDisplayMulti()
+      if (category === "Multi") store.setDisplayMulti()
       store.setFilterCategory(category);
       store.setFilterTerm(e);
     } else {
@@ -22,7 +21,7 @@ const FilterButton = ({ filterType, category }) => {
     }
   };
 
-  return useObserver(() => (
+  return (
     <div className="filterButton">
       <button
         value={filterType}
@@ -32,7 +31,7 @@ const FilterButton = ({ filterType, category }) => {
         {filterType.toUpperCase()}
       </button>
     </div>
-  ));
-};
+  );
+});
 
 export default FilterButton;

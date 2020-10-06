@@ -8,6 +8,7 @@ const StoreProvider = ({children}) => {
     filterCategory: '',
     filterTerm: '',
     displayMulti: false,
+    activeButton: false,
     orders: [
       {
         "Id": "uniqwo1",
@@ -91,6 +92,9 @@ const StoreProvider = ({children}) => {
     },
     setDisplayMulti:(e) => {
       store.displayMulti = !store.displayMulti;
+    },
+    setActiveButton:(e) => {
+      store.activeButton = !store.activeButton;
     },
     removeFilter: () => {
       store.filterTerm = ''

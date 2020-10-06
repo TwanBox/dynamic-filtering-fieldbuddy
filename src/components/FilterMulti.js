@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import FilterButton from './FilterButton';
 import FilterRadio from './FilterRadio';
-import { useObserver } from 'mobx-react';
+import { observer } from 'mobx-react';
   import { StoreContext } from '../stores/OrdersStore';
   import filterConfig from '../data/filtterConfig.json';
 import './css/FilterMulti.css';
 
-function FilterMulti() {
+const FilterMulti = observer(() => {
   const store = useContext(StoreContext);
   const { statusCategory } = filterConfig.filterByStatus;
 
-  return useObserver(() => (
+  return (
     <div>
     {store.displayMulti
       ? <div className="filterMulti">
@@ -24,7 +24,7 @@ function FilterMulti() {
       : ""
     }
     </div>
-  ));
-}
+  );
+});
 
 export default FilterMulti;

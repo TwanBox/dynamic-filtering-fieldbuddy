@@ -5,7 +5,7 @@
     "statusType":"Open"
   },
   "filterByColor": {
-    "colorDisplay": false,
+    "colorDisplay": true,
     "colorCategory":"Color",
     "colorType":"Blue"
   },
@@ -16,6 +16,6 @@
     "typeThree":"Malfunction"
   },
   "filterMulti": {
-    "display": true
+    "display": false
   }
 }

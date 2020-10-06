@@ -8,7 +8,7 @@ class OrderCard extends Component {
 			<div className="orderCard" style={{border: `2px solid ${this.props.color}`}}>
 				<div className="ordercard__header" style={{backgroundColor: this.props.color}}>
 					<p className="orderCard__headertext">{this.props.name}</p>
-					<p className="orderCard__headertext">{this.props.nametype}</p>
+					<p className="orderCard__headertext">{this.props.type}</p>
 					<div className="orderCard__statusContainer">
 						<p className="orderCard__status" style={{color: this.props.color}}>
 							{this.props.status}
