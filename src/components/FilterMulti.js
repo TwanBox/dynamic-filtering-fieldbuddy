@@ -3,7 +3,7 @@ import FilterButton from './FilterButton';
 import FilterRadio from './FilterRadio';
 import { observer } from 'mobx-react';
   import { StoreContext } from '../stores/OrdersStore';
-  import filterConfig from '../data/filtterConfig.json';
+  import filterConfig from '../data/filterConfig.json';
 import './css/FilterMulti.css';
 
 const FilterMulti = observer(() => {

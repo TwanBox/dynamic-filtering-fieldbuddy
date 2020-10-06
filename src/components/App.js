@@ -1,5 +1,5 @@
 import React from 'react';
-import filterConfig from '../data/filtterConfig.json';
+import filterConfig from '../data/filterConfig.json';
 import StoreProvider from '../stores/OrdersStore';
 import FilterButton from './FilterButton';
 import FilterDropdown from './FilterDropdown';

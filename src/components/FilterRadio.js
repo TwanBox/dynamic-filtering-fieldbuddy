@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { StoreContext } from '../stores/OrdersStore';
-import filterConfig from '../data/filtterConfig.json';
+import filterConfig from '../data/filterConfig.json';
 
 const FilterRadio = () => {
   const store = useContext(StoreContext);
