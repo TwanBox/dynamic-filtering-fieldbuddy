@@ -9,7 +9,33 @@ const OrderList = observer(() => {
 
   return (
     <div className="orderList">
-			{store.filtered.map(({
+			
+			{
+				store.selectedFilters.statuses.length === 0 && 
+				store.selectedFilters.colors.length === 0 && 
+				store.selectedFilters.types.length === 0
+				? store.orders.map(({
+					Id,
+					Name,
+					Status,
+					Type,
+					StartDate,
+					EndDate,
+					Color,
+					Description
+				}, i) => <OrderCard 
+					key={Id}
+					id={Id}
+					name={Name}
+					status={Status}
+					type={Type}
+					startDate={StartDate}
+					endDate={EndDate}
+					color={Color}
+					description={Description}
+				/>
+				)
+				: store.filtered.map(({
 					Id,
 					Name,
 					Status,

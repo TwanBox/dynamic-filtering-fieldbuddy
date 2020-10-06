@@ -18,13 +18,19 @@ function App() {
     <StoreProvider>
       <div className="App">
         <div className="filterRow">
-          { statusDisplay
-            ? <FilterButton filterType={statusType} category={statusCategory} />
-            : ""
+          {   
+            !display
+            ? statusDisplay
+              ? <FilterButton filterType={statusType} category={statusCategory} />
+              : ""
+            : ''
           }
-          { colorDisplay
-            ? <FilterButton filterType={colorType} category={colorCategory} />
-            : ""
+          {
+            !display
+            ? colorDisplay
+              ? <FilterButton filterType={colorType} category={colorCategory} />
+              : ""
+            : ''
           }
           { display
             ? <FilterButton filterType="multi" category="Multi" />

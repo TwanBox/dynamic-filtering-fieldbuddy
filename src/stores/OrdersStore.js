@@ -8,6 +8,11 @@ const StoreProvider = ({children}) => {
     filterCategory: '',
     filterTerm: '',
     displayMulti: false,
+    selectedFilters: {
+      statuses : [],
+      colors : [],
+      types : []
+    },
     orders: [
       {
         "Id": "uniqwo1",
@@ -80,6 +85,9 @@ const StoreProvider = ({children}) => {
         "Description": "closed - we installed something for them"
       }
     ],
+    setDisplayMulti:(e) => {
+      store.displayMulti = !store.displayMulti;
+    },
     setFilterCategory:(filterType) => {
       store.filterCategory = filterType;
     },
@@ -89,9 +97,6 @@ const StoreProvider = ({children}) => {
     setFilterTerm:(e) => {
       store.filterTerm = e.target.value;
     },
-    setDisplayMulti:(e) => {
-      store.displayMulti = !store.displayMulti;
-    },
     removeFilter: () => {
       store.filterTerm = ''
     },
@@ -99,37 +104,29 @@ const StoreProvider = ({children}) => {
       return store.orders.length
     },
     get filtered() {
-      switch(store.filterCategory) {
-        case "Status":
-          let filteredOpenOrders = store.orders.filter(
-            order => order.Status.indexOf(store.filterTerm)>-1
-          );
-          return filteredOpenOrders;
-        case "Color":
-          let filteredColorList = store.orders.filter(
-            order => order.Color.indexOf(store.filterTerm)>-1
-          );
-          return filteredColorList;
-        case "Type":
-          let filteredOrderType = store.orders.filter(
-            order => order.Type.indexOf(store.filterTerm)>-1
-          );
-          return filteredOrderType;
-        case "Date":
-          let sortedOrderDate = store.orders.slice().sort(
-            (a, b) => parseInt(b.EndDate.substring(0,2)) - parseInt(a.EndDate.substring(0,2))
-          );
-          return sortedOrderDate;
-        case "ADate":
-          let afterCertainDate = store.orders.filter(
-            order => (
-              order.EndDate.substring(0, 2) > 24 && order.EndDate.substring(0, 2) > 25
-            )
-          );
-          return afterCertainDate;
-        default:
-          return store.orders
+      const { statuses, colors, types } = store.selectedFilters;
+
+      const filteredOrders = store.orders.filter(({ Status, Color, Type }) => {
+      if(statuses.length > 0 && colors.length > 0 && types.length > 0) {
+        return statuses.includes(Status) && colors.includes(Color) && types.includes(Type)
+      } else if (statuses.length > 0 && colors.length === 0 && types.length === 0) {
+        return statuses.includes(Status) 
+      } else if (statuses.length === 0 && colors.length > 0 && types.length === 0) {
+        return colors.includes(Color)
+      } else if (types.length > 0 && colors.length === 0 && statuses.length === 0) {
+        return types.includes(Type)
+      } else if (types.length > 0 && colors.length === 0 && statuses.length > 0) {
+        return types.includes(Type) && statuses.includes(Status)
+      } else if (types.length > 0 && colors.length > 0 && statuses.length === 0) {
+        return types.includes(Type) && colors.includes(Color)
+      } else if (types.length === 0 && colors.length > 0 && statuses.length > 0) {
+        return statuses.includes(Status) && colors.includes(Color)
+      } else {
+        return statuses.includes(Status) || colors.includes(Color) || types.includes(Type)
       }
+    });
+
+    return filteredOrders;
     },
   }));
 

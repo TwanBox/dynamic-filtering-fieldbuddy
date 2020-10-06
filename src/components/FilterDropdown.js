@@ -8,12 +8,12 @@ const FilterDropdown = () => {
   const { typeOne, typeTwo, typeThree, display } = filterConfig.filterByType;
 
   const handleToggle = (e) => {
-    if (e.target.value !== 'TYPE') {
-      store.setFilterCategory('Type');
-      store.setFilterTerm(e);
+    if (store.selectedFilters.types.length === 0) {
+      store.selectedFilters.types.push(e.target.value);
+    } else if (e.target.value === 'noFilter') {
+      store.selectedFilters.types = [];
     } else {
-      store.removeFilter();
-      store.removeFilterCategory();
+      store.selectedFilters.types[0] = e.target.value;
     }
   };
 
@@ -21,7 +21,7 @@ const FilterDropdown = () => {
     display ?
     <div className="filterDropdown">
       <select className="filterButton__dropdown" onChange={(e) => handleToggle(e)}>
-        <option>TYPE</option>
+        <option value="noFilter">TYPE</option>
         <option value={typeOne}>{typeOne}</option>
         <option value={typeTwo}>{typeTwo}</option>
         <option value={typeThree}>{typeThree}</option>

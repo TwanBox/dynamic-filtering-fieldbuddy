@@ -10,12 +10,15 @@ const FilterButton = observer(({ filterType, category }) => {
   const handleToggle = (e) => {
     setActive(!active);
     if (!active) {
-      if (category === "Multi") store.setDisplayMulti()
+      if (category === 'Multi') store.setDisplayMulti()
+      if (category === 'Status') store.selectedFilters.statuses.push(e.target.value);
+      if (category === 'Color') store.selectedFilters.colors.push(e.target.value);
       store.setFilterCategory(category);
       store.setFilterTerm(e);
     } else {
-      if (category === "Multi") 
-      store.setDisplayMulti()
+      if (category === 'Multi') store.setDisplayMulti()
+      if (category === 'Status') store.selectedFilters.statuses = [];
+      if (category === 'Color') store.selectedFilters.colors = [];
       store.removeFilter();
       store.removeFilterCategory();
     }

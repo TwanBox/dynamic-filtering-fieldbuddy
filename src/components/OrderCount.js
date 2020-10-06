@@ -8,7 +8,13 @@ const OrderCount = observer(() => {
 
   return (
     <div className="ordercount">
-      {store.filtered.length === 1
+      { store.filtered.length === 0 && 
+        store.selectedFilters.statuses.length === 0 && 
+				store.selectedFilters.colors.length === 0 && 
+				store.selectedFilters.types.length === 0
+        ? <h4>{store.orders.length} Work Orders in Total</h4>
+        :
+        store.filtered.length === 1
         ? <h4>{store.filtered.length} Work Order in Total</h4>
         : <h4>{store.filtered.length} Work Orders in Total</h4>
       }
