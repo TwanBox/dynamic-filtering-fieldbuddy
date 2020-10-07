@@ -13,7 +13,8 @@ const OrderList = observer(() => {
 			{
 				store.selectedFilters.statuses.length === 0 && 
 				store.selectedFilters.colors.length === 0 && 
-				store.selectedFilters.types.length === 0
+				store.selectedFilters.types.length === 0 &&
+				store.filterCategory.length === 0
 				? store.orders.map(({
 					Id,
 					Name,

@@ -104,6 +104,7 @@ const StoreProvider = ({children}) => {
       return store.orders.length
     },
     get filtered() {
+
       const { statuses, colors, types } = store.selectedFilters;
 
       const filteredOrders = store.orders.filter(({ Status, Color, Type }) => {
@@ -126,6 +127,21 @@ const StoreProvider = ({children}) => {
       }
     });
 
+
+    if (store.filterCategory === 'Date') {
+      let sortedOrderDate = store.orders.slice().sort(
+        (a, b) => parseInt(b.EndDate.substring(0,2)) - parseInt(a.EndDate.substring(0,2))
+      );
+      return sortedOrderDate;
+    } else if (store.filterCategory === 'ADate') {
+      let afterCertainDate = store.orders.filter(
+        order => (
+          order.EndDate.substring(0, 2) > 24 && order.EndDate.substring(0, 2) > 25
+        )
+      );
+      return afterCertainDate;
+    }
+
     return filteredOrders;
     },
   }));
@@ -136,3 +152,17 @@ const StoreProvider = ({children}) => {
 }
 
 export default StoreProvider;
+
+
+// case "Date":
+//           let sortedOrderDate = store.orders.slice().sort(
+//             (a, b) => parseInt(b.EndDate.substring(0,2)) - parseInt(a.EndDate.substring(0,2))
+//           );
+//           return sortedOrderDate;
+//         case "ADate":
+//           let afterCertainDate = store.orders.filter(
+//             order => (
+//               order.EndDate.substring(0, 2) > 24 && order.EndDate.substring(0, 2) > 25
+//             )
+//           );
+//           return afterCertainDate;
