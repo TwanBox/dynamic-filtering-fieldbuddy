@@ -5,7 +5,7 @@ import './css/FilterButton.css';
 
 const FilterDropdown = () => {
   const store = useContext(StoreContext);
-  const { typeOne, typeTwo, typeThree, display } = filterConfig.filterByType;
+  const { display, types } = filterConfig.filterByType;
 
   const handleToggle = (e) => {
     if (store.selectedFilters.types.length === 0) {
@@ -22,9 +22,7 @@ const FilterDropdown = () => {
     <div className="filterDropdown">
       <select className="filterButton__dropdown" onChange={(e) => handleToggle(e)}>
         <option value="noFilter">TYPE</option>
-        <option value={typeOne}>{typeOne}</option>
-        <option value={typeTwo}>{typeTwo}</option>
-        <option value={typeThree}>{typeThree}</option>
+        { types.map(type => <option value={type}>{type}</option>) }
       </select>
     </div>
     : ''

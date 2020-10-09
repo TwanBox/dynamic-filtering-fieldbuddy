@@ -11,9 +11,7 @@
   },
   "filterByType": {
     "display": true,
-    "typeOne":"Installation",
-    "typeTwo":"Maintenance",
-    "typeThree":"Malfunction"
+    "types" : ["Installation", "Maintenance", "Malfunction", "Test"]
   },
   "filterMulti": {
     "display": false

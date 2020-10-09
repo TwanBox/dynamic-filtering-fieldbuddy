@@ -18,16 +18,16 @@ class OrderCard extends Component {
 				<div className="ordercard__details">
 					<div className="ordercard__descrpContainer">
 						<p className="ordercard__label">Description:</p>
-						<p>{this.props.description}</p>
+						<p>{this.props.description ? this.props.description : 'None'}</p>
 					</div>
 					<div className="ordercard__dateContainer">
 						<div className="ordercard__startDateContainer">
 							<p className="ordercard__label">Start date:</p>
-							<p>{this.props.startDate.toString().slice(0, -3)}</p>
+							<p>{this.props.startDate ? this.props.startDate.toString().slice(0, -3) : 'None'}</p>
 						</div>
 						<div className="ordercard__startDateContainer">
 							<p className="ordercard__label">End date:</p>
-							<p>{this.props.endDate.toString().slice(0, -3)}</p>
+							<p>{this.props.endDate ? this.props.endDate.toString().slice(0, -3) : 'None'}</p>
 						</div>
 					</div>
 				</div>

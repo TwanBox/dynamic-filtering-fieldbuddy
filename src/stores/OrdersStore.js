@@ -83,6 +83,16 @@ const StoreProvider = ({children}) => {
         "EndDate": "27-04-2016 15:30:00",
         "Color": "Green",
         "Description": "closed - we installed something for them"
+      },
+      {
+        "Id": "uniqwo8",
+        "Name": "WO-0008",
+        "Status": "Open",
+        "Type": "Test",
+        "StartDate": "22-04-2016 13:00:00",
+        "EndDate": "22-04-2016 14:00:00",
+        "Color": "Red",
+        "Description": "Install new KoelKast SF-123"
       }
     ],
     setDisplayMulti:(e) => {
