@@ -1,0 +1,30 @@
+.datePick {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0;
+}
+
+.datePick__btn {
+  color: #fff;
+	background-color:#00b7f4;
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+  border: 2px solid #00b7f4;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.datePick__btn:hover {
+  background-color:#00a3da;
+}
+
+.datePick__dateRange {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: #00b7f4 solid 5px;
+  border-radius: 10px;
+  padding-bottom: 2px;
+}

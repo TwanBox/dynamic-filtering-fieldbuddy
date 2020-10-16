@@ -4,3 +4,8 @@
   align-items: center;
   margin-bottom: 20px;
 }
+
+.filterMulti__filterRow {
+  display: flex;
+  margin: 10px 0;
+}

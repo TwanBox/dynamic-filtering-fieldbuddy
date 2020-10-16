@@ -7,20 +7,27 @@ const FilterButton = observer(({ filterType, category }) => {
   const [active, setActive] = useState(false);
   const store = useContext(StoreContext);
 
-  const handleToggle = (e) => {
+  const handleToggle = () => {
     setActive(!active);
     if (!active) {
-      if (category === 'Multi') store.setDisplayMulti()
-      if (category === 'Status') store.selectedFilters.statuses.push(e.target.value);
-      if (category === 'Color') store.selectedFilters.colors.push(e.target.value);
-      store.setFilterCategory(category);
-      store.setFilterTerm(e);
+      if (category === 'Multi') {
+        store.setDisplayMulti();
+      } else {
+        category in store.filters
+        ? store.filters[category].push(filterType)
+        : store.filters[category] = [filterType];
+      }
     } else {
-      if (category === 'Multi') store.setDisplayMulti()
-      if (category === 'Status') store.selectedFilters.statuses = [];
-      if (category === 'Color') store.selectedFilters.colors = [];
-      store.removeFilter();
-      store.removeFilterCategory();
+      if (category === 'Multi') {
+        store.setDisplayMulti();
+      } else {
+        if (store.filters[category].length === 1) {
+          delete store.filters[category]
+        } else {
+          let i = store.filters[category].indexOf(filterType);
+          store.filters[category].splice(i, 1);
+        }
+      }
     }
   };
 
@@ -29,7 +36,7 @@ const FilterButton = observer(({ filterType, category }) => {
       <button
         value={filterType}
         className={ !active ? "filterButton__btn" : "filterButton__btnActive" }
-        onClick={(e) =>handleToggle(e)}
+        onClick={() => handleToggle()}
       >
         {filterType.toUpperCase()}
       </button>

@@ -5,22 +5,19 @@ export const StoreContext = createContext();
 
 const StoreProvider = ({children}) => {
   const store = useLocalObservable(() => ({
-    filterCategory: '',
-    filterTerm: '',
+    filterStartDate: new Date(),
+    filterEndDate: new Date(),
     displayMulti: false,
-    selectedFilters: {
-      statuses : [],
-      colors : [],
-      types : []
-    },
+    dateActive: true,
+    filters: {},
     orders: [
       {
         "Id": "uniqwo1",
         "Name": "WO-0001",
         "Status": "Open",
         "Type": "Installation",
-        "StartDate": "22-04-2016 13:00:00",
-        "EndDate": "22-04-2016 14:00:00",
+        "StartDate": "Apr 22 2016 13:00:00",
+        "EndDate": "Apr 22 2016 14:00:00",
         "Color": "Red",
         "Description": "Install new KoelKast SF-123"
       },
@@ -29,8 +26,8 @@ const StoreProvider = ({children}) => {
         "Name": "WO-0002",
         "Status": "In Progress",
         "Type": "Maintenance",
-        "StartDate": "22-04-2016 14:00:00",
-        "EndDate": "22-04-2016 15:00:00",
+        "StartDate": "Apr 22 2016 14:00:00",
+        "EndDate": "Apr 22 2016 15:00:00",
         "Color": "Green",
         "Description": "Check freon on split-system"
       },
@@ -39,8 +36,8 @@ const StoreProvider = ({children}) => {
         "Name": "WO-0003",
         "Status": "Open",
         "Type": "Malfunction",
-        "StartDate": "23-04-2016 12:00:00",
-        "EndDate": "23-04-2016 13:30:00",
+        "StartDate": "Apr 23 2016 12:00:00",
+        "EndDate": "Apr 23 2016 13:30:00",
         "Color": "Blue",
         "Description": "see what's going on with the boiler"
       },
@@ -49,8 +46,8 @@ const StoreProvider = ({children}) => {
         "Name": "WO-0004",
         "Status": "Closed",
         "Type": "Installation",
-        "StartDate": "24-04-2016 16:00:00",
-        "EndDate": "24-04-2016 17:30:00",
+        "StartDate": "Apr 24 2016 16:00:00",
+        "EndDate": "Apr 24 2016 17:30:00",
         "Color": "Blue",
         "Description": "Install some stuff"
       },
@@ -59,8 +56,8 @@ const StoreProvider = ({children}) => {
         "Name": "WO-0005",
         "Status": "Open",
         "Type": "Installation",
-        "StartDate": "25-04-2016 12:00:00",
-        "EndDate": "25-04-2016 13:30:00",
+        "StartDate": "Apr 25 2016 12:00:00",
+        "EndDate": "Apr 25 2016 13:30:00",
         "Color": "Green",
         "Description": "you got this!"
       },
@@ -69,8 +66,8 @@ const StoreProvider = ({children}) => {
         "Name": "WO-0006",
         "Status": "Open",
         "Type": "Installation",
-        "StartDate": "26-04-2016 14:00:00",
-        "EndDate": "26-04-2016 14:30:00",
+        "StartDate": "Apr 26 2016 14:00:00",
+        "EndDate": "Apr 26 2016 14:30:00",
         "Color": "Red",
         "Description": "intall a brand new cupboard"
       },
@@ -79,8 +76,8 @@ const StoreProvider = ({children}) => {
         "Name": "WO-0007",
         "Status": "Open",
         "Type": "Installation",
-        "StartDate": "27-04-2016 15:00:00",
-        "EndDate": "27-04-2016 15:30:00",
+        "StartDate": "Apr 27 2016 15:00:00",
+        "EndDate": "Apr 27 2016 15:30:00",
         "Color": "Green",
         "Description": "closed - we installed something for them"
       },
@@ -89,70 +86,38 @@ const StoreProvider = ({children}) => {
         "Name": "WO-0008",
         "Status": "Open",
         "Type": "Test",
-        "StartDate": "22-04-2016 13:00:00",
-        "EndDate": "22-04-2016 14:00:00",
+        "StartDate": "Apr 22 2016 13:00:00",
+        "EndDate": "Apr 22 2016 14:00:00",
         "Color": "Red",
         "Description": "Install new KoelKast SF-123"
       }
     ],
-    setDisplayMulti:(e) => {
+    setFilterStartDate:(date) => {
+      store.filterStartDate = date;
+    },
+    setFilterEndDate:(date) => {
+      store.filterEndDate = date;
+    },
+    setDisplayMulti:() => {
       store.displayMulti = !store.displayMulti;
     },
-    setFilterCategory:(filterType) => {
-      store.filterCategory = filterType;
+    setDateActive:() => {
+      store.dateActive = false;
     },
-    removeFilterCategory: () => {
-      store.filterCategory = ''
-    },
-    setFilterTerm:(e) => {
-      store.filterTerm = e.target.value;
-    },
-    removeFilter: () => {
-      store.filterTerm = ''
-    },
-    get storeCount() {
-      return store.orders.length
+    filterOrders: (orders, filters) => orders.filter(order =>
+      Object.entries(filters).every(([key, arr]) => arr.includes(order[key]))
+    ),
+    filterByDate: () => {
+      const sd = new Date(store.filterStartDate).getTime();
+      const ed = new Date(store.filterEndDate).getTime();
+      
+      const dateRange = store.orders.filter(order => {
+        return new Date(order.StartDate).getTime() >= sd && new Date(order.StartDate).getTime() <= ed
+      });
+      store.orders = dateRange;
     },
     get filtered() {
-
-      const { statuses, colors, types } = store.selectedFilters;
-
-      const filteredOrders = store.orders.filter(({ Status, Color, Type }) => {
-      if(statuses.length > 0 && colors.length > 0 && types.length > 0) {
-        return statuses.includes(Status) && colors.includes(Color) && types.includes(Type)
-      } else if (statuses.length > 0 && colors.length === 0 && types.length === 0) {
-        return statuses.includes(Status) 
-      } else if (statuses.length === 0 && colors.length > 0 && types.length === 0) {
-        return colors.includes(Color)
-      } else if (types.length > 0 && colors.length === 0 && statuses.length === 0) {
-        return types.includes(Type)
-      } else if (types.length > 0 && colors.length === 0 && statuses.length > 0) {
-        return types.includes(Type) && statuses.includes(Status)
-      } else if (types.length > 0 && colors.length > 0 && statuses.length === 0) {
-        return types.includes(Type) && colors.includes(Color)
-      } else if (types.length === 0 && colors.length > 0 && statuses.length > 0) {
-        return statuses.includes(Status) && colors.includes(Color)
-      } else {
-        return statuses.includes(Status) || colors.includes(Color) || types.includes(Type)
-      }
-    });
-
-
-    if (store.filterCategory === 'Date') {
-      let sortedOrderDate = store.orders.slice().sort(
-        (a, b) => parseInt(b.EndDate.substring(0,2)) - parseInt(a.EndDate.substring(0,2))
-      );
-      return sortedOrderDate;
-    } else if (store.filterCategory === 'ADate') {
-      let afterCertainDate = store.orders.filter(
-        order => (
-          order.EndDate.substring(0, 2) > 24 && order.EndDate.substring(0, 2) > 25
-        )
-      );
-      return afterCertainDate;
-    }
-
-    return filteredOrders;
+      return store.filterOrders(store.orders, store.filters);
     },
   }));
 
@@ -162,17 +127,3 @@ const StoreProvider = ({children}) => {
 }
 
 export default StoreProvider;
-
-
-// case "Date":
-//           let sortedOrderDate = store.orders.slice().sort(
-//             (a, b) => parseInt(b.EndDate.substring(0,2)) - parseInt(a.EndDate.substring(0,2))
-//           );
-//           return sortedOrderDate;
-//         case "ADate":
-//           let afterCertainDate = store.orders.filter(
-//             order => (
-//               order.EndDate.substring(0, 2) > 24 && order.EndDate.substring(0, 2) > 25
-//             )
-//           );
-//           return afterCertainDate;
